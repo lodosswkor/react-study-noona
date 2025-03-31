@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          디벨롭 브랜치에서 푸시
         </a>
       </header>
     </div>
