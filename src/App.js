@@ -72,7 +72,7 @@ function App() {
   return (
     <div>
       <div className="main">
-        <Box title='You!' choice={userChoice} result={result}/>
+        <Box title='You' choice={userChoice} result={result}/>
         <div style={{'width':'20px'}}></div>  
         {/* // prop expects a mapping from style properties to values, not a string. { props / object }*/}
         <Box title='Computer' choice={comChoice} result={result}/>
