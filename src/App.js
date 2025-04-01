@@ -70,7 +70,8 @@ function App() {
 
 
   return (
-    <div>
+    <div style={{'textAlign':'center'}}>
+      <h1>4월 1일 숙제</h1>
       <div className="main">
         <Box title='You' choice={userChoice} result={result}/>
         <div style={{'width':'20px'}}></div>  
