@@ -43,6 +43,13 @@ function App() {
     let endPoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=c927a1e61951cab35cd1418ae2f716c9`;
     let response = await fetch(endPoint);
     let data = await response.json();
+    setWeather(data);
+  }
+
+  const getWeatherByCityName = async (cityName) => {
+    let endPoint = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=c927a1e61951cab35cd1418ae2f716c9`;
+    let response = await fetch(endPoint);
+    let data = await response.json();
     console.log(endPoint);
     setWeather(data);
   }
@@ -51,7 +58,7 @@ function App() {
     <div>
       <div className="container">
         <WeatherBox weather={weather}/>
-        <WeatherButton/>
+        <WeatherButton onClickFunc={getWeatherByCityName}/>
       </div>
     </div>
   )
