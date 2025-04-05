@@ -3,6 +3,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WeatherBox from './components/WeatherBox';
 import WeatherButton from './components/WeatherButton';
+import { ClipLoader } from 'react-spinners';
 
 
 
@@ -17,17 +18,35 @@ import WeatherButton from './components/WeatherButton';
  */
 
 
+const cities = ['Seoul', 'new york', 'tokyo']; 
+const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+
 function App() {
 
   const [weather, setWeather] = useState(null); 
+  const [city, setCity] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [apiStatus, setApiStatus] = useState({
+    isError : false, 
+    errMessage : ''
+  });
 
   //-- 첫 실행
+  // useEffect(() => {
+  //   getCurrentLocation(); 
+  // },[]);
+
   useEffect(() => {
-    getCurrentLocation(); 
-  },[]);
+    if(city === '') {
+     getCurrentLocation(); 
+    } else {
+      getWeatherByCityName(city); 
+    }
+  }, [city]);
+
+  
 
   const getCurrentLocation = () => {
-    console.log('getCurrentLocation!');
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         let lng = position.coords.longitude; 
@@ -40,25 +59,62 @@ function App() {
   }
 
   const getWeatherByCurrentLocation = async (lat, lng) => {
-    let endPoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=c927a1e61951cab35cd1418ae2f716c9`;
-    let response = await fetch(endPoint);
-    let data = await response.json();
-    setWeather(data);
+    
+    setLoading(true); 
+    try {
+      let endPoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${apiKey}`;
+      let response = await fetch(endPoint);
+      if(!response.ok) {
+        let message = `status : ${response.status}, statusText : ${response.statusText}`
+        throw new Error(message);
+      }
+      let data = await response.json();
+      setWeather(data);
+      setApiStatus((prev) => { return {...prev, isError: false, errMessage: ''} });
+    } catch(err) {
+      setApiStatus((prev) => { return {...prev, isError: true, errMessage: err.message} });
+    } finally {
+      setLoading(false); 
+    }
+
   }
 
   const getWeatherByCityName = async (cityName) => {
-    let endPoint = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=c927a1e61951cab35cd1418ae2f716c9`;
-    let response = await fetch(endPoint);
-    let data = await response.json();
-    console.log(endPoint);
-    setWeather(data);
+
+    setLoading(true); 
+
+    try {
+      let endPoint = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`;
+      let response = await fetch(endPoint);
+      if(!response.ok) {
+        let message = `status : ${response.status}, statusText : ${response.statusText}`
+        throw new Error(message);
+      }
+      let data = await response.json();
+      setWeather(data);
+      setApiStatus((prev) => { return {...prev, isError: false, errMessage: ''} });
+    } catch(err) {
+      setApiStatus((prev) => { return {...prev, isError: true, errMessage: err.message} });
+    } finally {
+      setLoading(false); 
+    }
   }
 
   return (
     <div>
-      <div className="container">
-        <WeatherBox weather={weather}/>
-        <WeatherButton onClickFunc={getWeatherByCityName}/>
+      <div className="container black-han-sans-regular">
+      {loading? ( <ClipLoader
+          color={'red'}
+          loading={loading}
+          size={150}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        /> ) : (
+          <>
+            <WeatherBox weather={weather} apiStatus={apiStatus}/>
+            <WeatherButton cities={cities} city={city} setCity={setCity} getWeatherByCityName={getWeatherByCityName}/>
+          </>
+        )}
       </div>
     </div>
   )

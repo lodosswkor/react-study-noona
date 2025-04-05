@@ -3,12 +3,14 @@ import { Button } from 'react-bootstrap'
 
 
 
-const WeatherButton = ({onClickFunc}) => {
+const WeatherButton = ({cities, city, setCity}) => {
+  
   return (
-    <div>
-        <Button variant="warning">Current Location</Button>
-        <Button variant="warning" onClick={() => onClickFunc('Seoul')}>Seoul</Button>
-        <Button variant="warning" onClick={() => onClickFunc('New York')}>New York</Button>
+    <div className={'mt20'}>
+        <Button variant={city == '' ? "secondary" : "warning"}  onClick={() => setCity('')} className={'mr10'}>Current Location</Button>
+        {cities.map((item) => {
+         return <Button variant={city !== item ? "warning" : "secondary"} onClick={() => setCity(item)} className={'mr10'}>{item}</Button>
+        })}
     </div>
   )
 }
