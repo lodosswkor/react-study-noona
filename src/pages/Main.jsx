@@ -20,9 +20,7 @@ const Main = () => {
 
   return (
     <div>
-      {productList && productList.map((item) => {
-        <ProductCard item={item} />
-      })}
+        <ProductCard productList={productList} />
     </div>
   )
 }

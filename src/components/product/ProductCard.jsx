@@ -1,17 +1,24 @@
 import React from 'react'
 
-const ProductCard = ({item}) => {
+const ProductCard = ({productList}) => {
 
-    console.log(item);
-    const {id, img, title, price, choice, size} = item; 
   
+    console.log(productList)
     return (
-        <div>
-            <ing src={img}/>
-            <div>초이스</div>
-            <div>{title}</div>
-            <div>{price}</div>
-        </div>
+        <>
+        {productList && 
+            productList.map((item) => (
+                <div>
+                    <img src={item.img}/>
+                    {item.choice && <div>초이스</div>}
+                    <div>{item.title}</div>
+                    <div>{item.price}</div>
+                    {item.new && <div>뉴우</div>}
+                </div>
+            ))
+            
+        }
+        </>
     )
 }
 
