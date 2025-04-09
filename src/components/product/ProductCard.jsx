@@ -1,23 +1,26 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
 
-const ProductCard = ({productList}) => {
 
-  
-    console.log(productList)
+const ProductCard = ({product}) => {
+    const navigate = useNavigate(); 
     return (
         <>
-        {productList && 
-            productList.map((item) => (
-                <div>
-                    <img src={item.img}/>
-                    {item.choice && <div>초이스</div>}
-                    <div>{item.title}</div>
-                    <div>{item.price}</div>
-                    {item.new && <div>뉴우</div>}
-                </div>
-            ))
-            
-        }
+            {/* {product && (<div>
+                        <img src={product?.img}/>
+                        {product?.choice && <div>초이스</div>}
+                        <div>{product?.title}</div>
+                        <div>{product?.price}</div>
+                        {product?.new && <div>뉴우</div>}
+                    </div>
+            )};   */}
+            <div className={'product-card'} onClick={() => { navigate(`/products/${product.id}`)}}>
+                <img src={product?.img}/>
+                <div style={{'color':'blue'}}>{product?.choice ? 'concious choice' : ''}</div>
+                <div>{product?.title}</div>
+                <div>{product?.price}</div>
+                <div style={{'color':'red'}}>{product?.new ? '신제품' : ''}</div>
+            </div>
         </>
     )
 }

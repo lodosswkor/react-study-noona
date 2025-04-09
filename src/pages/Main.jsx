@@ -1,7 +1,8 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import ProductCard from '../components/product/ProductCard';
+import ProductAll from '../components/product/ProductAll';
+
 const Main = () => {
 
   const [productList, setProductList] = useState(); 
@@ -20,7 +21,7 @@ const Main = () => {
 
   return (
     <div>
-        <ProductCard productList={productList} />
+        <ProductAll productList={productList} />
     </div>
   )
 }

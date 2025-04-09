@@ -140,5 +140,38 @@
           "size":["S","M","L"]
 
       }
-  ]
+  ],
+  "menu": [{
+    "id":1, 
+    "name": "여성",
+    "route": ""
+  },{
+    "id":2, 
+   "name": "Divided",
+   "route": ""
+ },{
+    "id":3, 
+   "name": "남성",
+   "route": ""
+ },{
+    "id":4, 
+   "name": "신생아/유아",
+   "route": ""
+ },{
+    "id":5, 
+   "name": "아동",
+   "route": ""
+ },{
+    "id":6, 
+   "name": "H&M Home",
+   "route": ""
+ },{
+    "id":7, 
+   "name": "Sale",
+   "route": ""
+ },{
+    "id":8, 
+   "name": "지속가능성",
+   "route": ""
+ }]
 }
