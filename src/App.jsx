@@ -7,7 +7,7 @@ import ProductDetail from './pages/ProductDetail';
 import Products from './pages/Products';
 import NavBar from './components/NavBar'
 import { useEffect, useState } from 'react';
-import PrivateRoute from './route/privateRoute';
+import PrivateRoute from './route/PrivateRoute';
 
 
 //1. 전체상품, 2. 로그인, 상품상세 
