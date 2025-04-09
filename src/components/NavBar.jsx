@@ -35,28 +35,32 @@ const NavBar = () => {
 
   return (
     <>
-        <div>
+        <div className={'navi-top'}>
+
+
+
+            <div className={'search'}>
+                <div className={'search-bar'}>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <input type="text" placeholder={'검색어를 입력해 주세요.'}/>
+                </div>
+            </div>
             <div className={'login-button'}>
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faUser} /> &nbsp;
                 <div>로그인</div>
             </div>
         </div>
         <div className={'nav-section'}>
             <img src='https://logos-world.net/wp-content/uploads/2020/04/HM-Logo.png' width={100}/>
         </div>
-        <div className={'menu-area'}>
-            <ul className={'menu-list'}>
-                {menuList.map((item) => {
-                    return <li>{item.name}</li> 
-                })} 
-            </ul>
-            <div className={'search'}>
-                <div className={'search-bar'}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    <input type="text" />
-                </div>
-            </div>
+        <div className={'menu-area flex items-center'}>
+              <ul className={'menu-list'}>
+                  {menuList.map((item) => {
+                      return <li>{item.name}</li> 
+                  })} 
+              </ul>
         </div>
+        
     </>
   )
 }

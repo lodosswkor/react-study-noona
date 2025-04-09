@@ -1,5 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Nanum+Gothic&family=Noto+Sans+KR:wght@100..900&display=swap');
+
+.navi-top {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.search {
+  margin-top:15px;
+}
+
+.search input{
+  width:300px;
+  border: none;
+  margin-left: 3px;
+  outline: none;
+}
+
+.search-bar{
+  border-bottom: 2px solid black;
+  margin-right: 30px;
+  padding: 5px;
+}
+
+
 .login-button {
   display: flex;
+  font-family: "Nanum Gothic Coding", monospace;
   justify-content: flex-end;
   margin: 20px;
 }
@@ -10,11 +38,15 @@
 }
 
 .menu-list {
+  padding-top:10px;
   display: flex;
   list-style-type: none;
 }
 
 .menu-list li {
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 200;
+  font-style: normal;
   padding: 10px;
 }
 
@@ -23,20 +55,3 @@
   justify-content: center;
 }
 
-
-.search{
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-
-.search input{
-  border: none;
-  margin-left: 3px;
-}
-
-.search-bar{
-  border-bottom: 2px solid black;
-  margin-right: 30px;
-  padding: 5px;
-}
