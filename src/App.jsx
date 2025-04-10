@@ -9,7 +9,6 @@ import NavBar from './components/NavBar'
 import { useEffect, useState } from 'react';
 import PrivateRoute from './route/PrivateRoute';
 
-
 //1. 전체상품, 2. 로그인, 상품상세 
 //1. 전체상품 : 전체상품 목록 
 //2. 로그인을 누르면 로그인 페이지가 나온다. 
@@ -21,16 +20,18 @@ import PrivateRoute from './route/PrivateRoute';
 function App() {
 
   const [auth, setAuth] = useState(false);
+  // const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     console.log(auth);
   }, [auth])
 
+
   return (
     <>
-      <NavBar />
+      <NavBar auth={auth} setAuth={setAuth}/>
       <Routes>
-        <Route index element={<Main/>} />
+        <Route index element={<Main />} />
         <Route path="/login" element={<Login setAuth={setAuth}/>} />
         <Route path='/products'>
           <Route index element={<Products />} />

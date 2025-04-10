@@ -8,7 +8,7 @@ const Main = () => {
   const [productList, setProductList] = useState(); 
 
   const getProducts = async () => {
-    let url = `https://my-json-server.typicode.com/lodosswkor/react-study-noona/products`; 
+    let url = `${import.meta.env.VITE_API_URL}/products`; 
     let response = await fetch(url);
     let data = await response.json();
     setProductList(data);

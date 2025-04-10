@@ -24,7 +24,6 @@ body {
 
 .search-bar{
   border-bottom: 2px solid black;
-  margin-right: 30px;
   padding: 5px;
 }
 
@@ -33,7 +32,7 @@ body {
   display: flex;
   font-family: "Nanum Gothic Coding", monospace;
   justify-content: flex-end;
-  margin: 20px;
+  margin: 25px;
   cursor: pointer;
 }
 
@@ -54,6 +53,16 @@ body {
   font-style: normal;
   padding: 10px;
 }
+
+
+.menu-area {
+  font-family: "Black Han Sans", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  padding:10px;
+}
+
+
 
 .menu-area {
   display: flex;
