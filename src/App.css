@@ -47,10 +47,10 @@ body {
   list-style-type: none;
 }
 
-.menu-list li {
+.menu {
   font-family: "Black Han Sans", sans-serif;
-  font-weight: 200;
-  font-style: normal;
+  font-weight: 100;
+  font-style:normal;
   padding: 10px;
 }
 
@@ -91,6 +91,10 @@ body {
   justify-content: flex-end;
 }
 
+.product-img img {
+  max-width: 100%;
+}
+
 
 .product-price {
   font-size: 20px;
@@ -106,4 +110,197 @@ body {
   color: #666;
   margin-bottom: 25px;
   display: inline-block;
+}
+
+
+
+@font-face {
+  font-family: 'Cafe24Ohsquare';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+.top-area {
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.search-part {
+  border-bottom: 1px solid #999;
+  padding: 2px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.login-button {
+  display: flex;
+  padding: 2px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.logo-area {
+  padding: 20px 0;
+  font-family: 'Cafe24Ohsquare' !important;
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  font-style: italic;
+  cursor: pointer;
+  user-select: none;
+}
+.menu-area {
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
+}
+.menu-list {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  font-size: 18px;
+  line-height: 1;
+  padding: 10px 0;
+}
+
+.menu-list li {
+  cursor: pointer;
+  user-select: none;
+  text-shadow: none;
+  padding: 10px 0;
+  position: relative;
+}
+
+.menu-list li:before {
+  color: #fff;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+  content: attr(data-hover);
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  pointer-events: none;
+}
+
+.menu-list li:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff0000;
+  opacity: 0;
+  -webkit-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  transform: translateY(5px);
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  pointer-events: none;
+}
+
+.menu-list li:has(.on):before,
+.menu-list li:hover:before,
+.menu-list li:focus:before {
+  opacity: 0;
+  -webkit-transform: translateY(-2px);
+  -moz-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+.menu-list li:has(.on):after,
+.menu-list li:hover:after,
+.menu-list li:focus:after {
+  opacity: 1;
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  transform: translateY(0px);
+}
+
+.side-menu-area,
+.side-menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .top-area {
+      justify-content: space-between;
+  }
+  .search-part input {
+      width: 100px;
+  }
+  .login-button > div {
+      display: none;
+  }
+  .mob-menu-list {
+      display: flex;
+      flex-direction: column;
+  }
+  .menu-area {
+      display: none;
+  }
+  .side-menu-toggle {
+      display: block;
+      cursor: pointer;
+  }
+  .side-menu-area {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80%;
+      height: 100%;
+      background-color: #f8f8f8;
+      z-index: 1000;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      display: flex; /* 추가됨 */
+      flex-direction: column; /* 추가됨 */
+  }
+  .search-part {
+      border-bottom: none;
+  }
+  .side-menu-header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+  }
+
+  .side-menu-header .close-button {
+      font-size: 24px;
+      cursor: pointer;
+  }
+
+  .side-menu-area.active {
+      display: flex; /* 추가됨 */
+      transform: translateX(0);
+  }
+  .side-menu-list {
+      padding: 20px;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex-grow: 1; /* 필요에 따라 */
+  }
+
+  .side-menu-list li {
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+  }
+  .side-menu-list li:hover {
+      color: #ff0000;
+  }
+  .side-menu-list li:has(.on) {
+      color: #ff0000;
+  }
 }

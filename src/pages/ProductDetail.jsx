@@ -36,7 +36,7 @@ const ProductDetail = () => {
     <Container>
       <Row>
         <Col className={'product-img'} md={6}>
-          <img src={product?.img} />
+          <img src={product?.img} style={{'maxWidth':'100%'}}/>
         </Col>
         <Col md={6}>
           <Row md={12}><h1>{product?.title} {product?.new ? <img src={newIcon} width={30} style={{'marginTop':'-10px'}}/> : ''}</h1></Row>

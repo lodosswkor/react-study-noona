@@ -15,7 +15,7 @@ const ProductCard = ({product}) => {
                     </div>
             )};   */}
             <div className={'product-card'} onClick={() => { navigate(`/products/${product.id}`)}}>
-                <img src={product?.img}/>
+                <img src={product?.img} style={{'maxWidth':'100%'}}/>
                 <div style={{'color':'blue'}}>{product?.choice ? 'concious choice' : ''}</div>
                 <div>{product?.title}</div>
                 <div>{product?.price}</div>
