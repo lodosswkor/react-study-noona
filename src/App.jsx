@@ -7,6 +7,11 @@ function App() {
   const [inputNum, setInputNum] = useState(0)
   const {increase, increaseBy, reset} = counterStore();
 
+  const resetCounter = () => {
+    setInputNum(0);
+    reset(); 
+  }
+
   const onChange = (e) => {
     setInputNum(e.target.value); 
   } 
@@ -30,7 +35,7 @@ function App() {
       {/* <h1>count : {count}</h1> */}
         <input type="number" value={inputNum} onChange={onChange} onKeyDown={(e) => onKeyDown(e)}/>
         <CountBox/>
-        <button onClick={() => reset()}>초기화</button>&nbsp;
+        <button onClick={() => resetCounter()}>초기화</button>&nbsp;
         <button onClick={increase}>하나씩 증가</button>&nbsp;
         <button onClick={() => increaseBy(10)}>10씩 증가</button>&nbsp;
         <button onClick={() => increaseBy(-10)}>10씩 감소</button>&nbsp;
