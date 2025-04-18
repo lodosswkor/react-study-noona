@@ -1,6 +1,6 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import AppLayout from './layout/AppLayout'
-import Homepage from './pages/Home/Homepage'
+import HomePage from './pages/Home/HomePage'
 import MoviePage from './pages/Movies/MoviePage'
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage'
 import NotFound from './pages/Error/NotFound'
@@ -16,7 +16,7 @@ function App() {
   return (
       <Routes>
         <Route path="/" element={<AppLayout />}>
-          <Route index element={<Homepage />} />
+          <Route index element={<HomePage />} />
           <Route path="/movies"> {/* nested route */}
             <Route index element={<MoviePage />} />
             <Route path=":id" element={<MovieDetailPage />} />
