@@ -7,7 +7,7 @@ import Banner from './components/banner/Banner'
 //-- 4. Upcoming 영화
 //-- 5. Now playing 영화
 
-const Homepage = () => {
+const HomePage = () => {
   return (
     <div>
       <Banner/>
@@ -15,4 +15,4 @@ const Homepage = () => {
   )
 }
 
-export default Homepage
+export default HomePage
