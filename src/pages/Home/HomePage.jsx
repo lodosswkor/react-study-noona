@@ -1,5 +1,8 @@
 import React from 'react'
 import Banner from './components/banner/Banner'
+import PopularMovieSlide from './components/popularMovieSlide/PopularMovieSlide'
+import TopRatedMovieSlide from './components/topRatedMovieSlide/TopRatedMovieSlide'
+import UpCommingMovieSlide from './components/upCommingMovieSlide/UpCommingMovieSlide'
 
 //-- 1. 배너 => top popular 영화의 첫번째 영화를 보여줌
 //-- 2. Popular 영화
@@ -11,8 +14,11 @@ const HomePage = () => {
   return (
     <div>
       <Banner/>
+      <PopularMovieSlide/>
+      <TopRatedMovieSlide/>
+      <UpCommingMovieSlide/>
     </div>
   )
 }
 
-export default HomePage
+export default HomePage;

@@ -1,0 +1,87 @@
+.movie-card {
+    width: 220px;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.movie-card:hover .overlay {
+    opacity: 1;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    z-index: 2;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.movie-info {
+    color: white;
+}
+
+.movie-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.movie-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.rating-value {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.rating-label {
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+.age-rating {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.genre-badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    background-color: rgba(220, 53, 69, 0.8) !important;
+    border: none;
+}
