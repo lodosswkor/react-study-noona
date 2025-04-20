@@ -8,6 +8,7 @@
     position: relative;
     border-radius: 4px;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 .overlay {
@@ -124,43 +125,43 @@
 
 @media (max-width: 464px) {
     .movie-card {
-        width: 140px;
-        height: 200px;
+        width: 220px;
+        height: 300px;
     }
     
     .overlay {
-        padding: 10px;
+        padding: 15px;
     }
     
     .movie-title {
-        font-size: 0.9rem;
-        margin-bottom: 5px;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
     }
     
     .movie-details {
-        gap: 8px;
-        margin-bottom: 5px;
+        gap: 10px;
+        margin-bottom: 8px;
     }
     
     .rating-value {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
     }
     
     .rating-label {
-        font-size: 0.6rem;
+        font-size: 0.8rem;
     }
     
     .age-rating {
-        font-size: 0.6rem;
-        padding: 1px 4px;
+        font-size: 0.8rem;
+        padding: 2px 6px;
     }
     
     .genre-container {
-        gap: 3px;
+        gap: 5px;
     }
     
     .genre-badge {
-        font-size: 0.5rem;
-        padding: 1px 4px;
+        font-size: 0.7rem;
+        padding: 2px 6px;
     }
 }

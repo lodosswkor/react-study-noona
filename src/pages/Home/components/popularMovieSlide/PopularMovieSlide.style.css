@@ -7,4 +7,17 @@
 .movie-slider {
     padding: 0 5px;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+/* 모바일 화면에서 높이 조정 */
+@media (max-width: 464px) {
+    .carousel-container {
+        height: 320px;
+    }
+    
+    .movie-slider {
+        padding: 0;
+    }
 }
