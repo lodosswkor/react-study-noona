@@ -15,8 +15,8 @@ const MovieCard = ({movie}) => {
                 <div className="movie-title">{movie?.title}</div>
                 <div className="movie-details">
                     <div className="rating">
-                        <span className="rating-value">{movie?.vote_average.toFixed(1)}</span>
                         <span className="rating-label">평점</span>
+                        <span className="rating-value">{movie?.vote_average.toFixed(1)}</span>
                     </div>
                     <div className="age-rating">
                         {movie?.adult ? '청불' : '19세 관람가'}

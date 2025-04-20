@@ -3,7 +3,7 @@ import api from "../utils/api";
 
 
 const fetchUpCommingMovies = () => {
-    return api.get('/movie/upcoming');
+    return api.get('/movie/upcoming?language=ko-KR');
 };
 
 export const useUpCommingMoviesQuery = () => {
