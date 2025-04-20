@@ -14,9 +14,11 @@ const HomePage = () => {
   return (
     <div>
       <Banner/>
-      <PopularMovieSlide/>
-      <TopRatedMovieSlide/>
-      <UpCommingMovieSlide/>
+      <div className='container'>
+        <PopularMovieSlide/>
+        <TopRatedMovieSlide/>
+        <UpCommingMovieSlide/>
+      </div>
     </div>
   )
 }
