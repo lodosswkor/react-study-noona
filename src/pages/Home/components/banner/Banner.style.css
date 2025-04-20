@@ -2,15 +2,17 @@
     height: 56vh;
     background-size: cover;
     background-position: center;
-    background-image: no-repeat;
+    background-repeat: no-repeat;
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
+    align-items: flex-start;
 }
 
 .banner::before {
     content: '';
-    background:linear-gradient(to top, black, transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
     position: absolute;
     left: 0;
     height: 56vh;
@@ -18,15 +20,99 @@
 }
 
 .banner-text-area {
-    width: 36%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 100%;
-    padding: 2em;
     position: relative;
+    z-index: 2;
+    padding: 0 2rem 1rem 2rem;
+    max-width: 800px;
+    width: 100%;
+    text-align: left;
 }
 
-.banner-text-area > * {
-    z-index: 2;
+.banner-text-area h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.banner-text-area p {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+/* 화면 크키별 폰트 크기 변경 */
+@media (max-width: 1200px) {
+    .banner-text-area h1 {
+        font-size: 3rem;
+    }
+
+    .banner-text-area p {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .banner-text-area h1 {
+        font-size: 2.5rem;
+    }
+
+    .banner-text-area p {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner {
+        height: 50vh;
+    }
+
+    .banner::before {
+        height: 50vh;
+    }
+
+    .banner-text-area {
+        padding: 0 1rem 0.8rem 1rem;
+        max-width: 100%;
+    }
+
+    .banner-text-area h1 {
+        font-size: 2rem;
+    }
+
+    .banner-text-area p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-text-area h1 {
+        font-size: 1.8rem;
+    }
+
+    .banner-text-area p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner {
+        height: 40vh;
+    }
+
+    .banner::before {
+        height: 40vh;
+    }
+
+    .banner-text-area {
+        padding: 0 1rem 0.5rem 1rem;
+        max-width: 100%;
+    }
+
+    .banner-text-area h1 {
+        font-size: 1.5rem;
+    }
+
+    .banner-text-area p {
+        font-size: 0.9rem;
+    }
 }
