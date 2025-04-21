@@ -1,8 +1,18 @@
 import React from 'react'
 import { Badge } from 'react-bootstrap'
 import './MovieCard.style.css'
+import { useMovieGenreQuery } from '../../hooks/useMovieGenre'
 
 const MovieCard = ({movie}) => {
+
+
+  const {data: genreData} = useMovieGenreQuery();
+  
+  const showGenre = (id) => {
+    if(!genreData) return '';
+    return genreData.genres.find((item) => item.id == id).name;
+  }
+
   return (
     <div
         className={'movie-card'}
@@ -24,7 +34,7 @@ const MovieCard = ({movie}) => {
                 </div>
                 <div className="genre-container">
                     {movie?.genre_ids.map((item)=>
-                        <Badge key={item.id} bg={'danger'} className="genre-badge">{item}</Badge>
+                        <Badge key={item.id} bg={'danger'} className="genre-badge">{showGenre(item)}</Badge>
                     )}
                 </div>
             </div>
