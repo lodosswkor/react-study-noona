@@ -1,0 +1,273 @@
+#container {
+  margin: 1rem;
+}
+
+.repo-title {
+  margin-bottom: 1.5rem;
+}
+
+.listing {
+  margin-bottom: 1rem;
+}
+
+/* 페이지네이션 컨테이너 */
+.paginate-wrapper {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* 넷플릭스 스타일 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 2rem 0;
+  margin: 1rem 0;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* 페이지가 1개일 때 페이지네이션 숨기기 */
+.pagination[aria-label="Pagination with only one page"] {
+  display: none;
+}
+
+.pagination::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 500px;
+  height: 60px;
+  background-color: rgba(20, 20, 20, 0.6);
+  border-radius: 30px;
+  z-index: -1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.page-item {
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-link {
+  background-color: #141414;
+  color: #999;
+  border: 2px solid #8B0000;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1;
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.page-link > a,
+.page-link > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.page-link:focus {
+  box-shadow: none;
+  outline: none;
+  color: #E50914;
+  text-decoration: none;
+}
+
+.page-link:hover {
+  background-color: #1A1A1A;
+  color: #E50914;
+  border-color: #E50914;
+  transform: scale(1.1);
+  text-decoration: none;
+}
+
+.page-item.active .page-link {
+  background-color: #1A1A1A;
+  color: white;
+  border: 2px solid #E50914;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+}
+
+.page-item.disabled .page-link {
+  color: #444;
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.7;
+  border-color: #333;
+  background-color: #0A0A0A;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 넷플릭스 스타일 페이지 번호 컨테이너 */
+.pagination .break {
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination .break .page-link {
+  pointer-events: none;
+  border: none;
+  background: transparent;
+}
+
+/* Previous & Next 버튼 스타일 */
+.pagination .previous,
+.pagination .next {
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination .previous .page-link,
+.pagination .next .page-link {
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: none;
+  background: transparent;
+  min-width: 40px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination .previous .page-link:hover,
+.pagination .next .page-link:hover {
+  color: #E50914;
+  background-color: transparent;
+  transform: scale(1.15);
+}
+
+.pagination .previous.disabled .page-link,
+.pagination .next.disabled .page-link {
+  color: #444;
+  opacity: 0.5;
+  background-color: transparent;
+}
+
+/* break 요소 스타일 */
+.pagination .break .page-link {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-item a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.page-item span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* 페이지네이션 컨테이너에 모든 요소의 정렬 통일 */
+.pagination li,
+.pagination li a,
+.pagination li span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    flex-wrap: wrap;
+    padding: 1rem 0;
+    gap: 2px;
+  }
+  
+  .pagination::before {
+    height: 50px;
+    max-width: 300px;
+  }
+  
+  .page-item {
+    margin: 0 3px;
+  }
+  
+  .page-link {
+    padding: 0;
+    font-size: 0.9rem;
+    min-width: 30px;
+    height: 30px;
+    border-width: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .pagination .previous .page-link,
+  .pagination .next .page-link {
+    padding: 0;
+    font-size: 0.8rem;
+    min-width: 30px;
+  }
+  
+  .page-item.disabled .page-link {
+    border-width: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 1px;
+  }
+  
+  .page-item {
+    margin: 0 2px;
+  }
+  
+  .page-link {
+    min-width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+    border-width: 1px;
+  }
+  
+  .pagination::before {
+    max-width: 250px;
+  }
+}
