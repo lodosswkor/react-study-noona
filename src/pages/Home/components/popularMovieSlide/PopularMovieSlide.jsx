@@ -6,10 +6,16 @@ const PopularMovieSlide = () => {
 
   const {data, isLoading, isError, error} = usePopularMoviesQuery();
 
-  if(isLoading) return <div><h1>Loading...</h1></div>;
+  if(isLoading) return (
+    <div className="netflix-loading">
+      <div className="netflix-spinner"></div>
+      <h2>로딩 중...</h2>
+    </div>
+  );
+
   if(isError) {
     return (
-      <div>
+      <div className="netflix-error">
         <Alert variant={'danger'}>{error.message}</Alert>
       </div>
     );

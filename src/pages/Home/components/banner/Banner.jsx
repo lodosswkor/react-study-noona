@@ -11,16 +11,20 @@ const Banner = () => {
     const { data, isLoading, isError, error } = usePopularMoviesQuery(); 
     console.log(data); 
     
-    if(isLoading) return <div><h1>Loading...</h1></div>;
-    if(isError) {
+    if(isLoading) return (
+        <div className="netflix-loading">
+          <div className="netflix-spinner"></div>
+          <h2>로딩 중...</h2>
+        </div>
+      );
+    
+      if(isError) {
         return (
-            <div>
-                <Alert variant={'danger'}>
-                 {error.message}
-                </Alert>
-            </div>
+          <div className="netflix-error">
+            <Alert variant={'danger'}>{error.message}</Alert>
+          </div>
         );
-    }
+      }
 
     return (
         <div style={{

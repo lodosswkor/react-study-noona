@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router';
 import { useSearchMovieQuery } from '../../hooks/useSearchMovie';
-import { Container } from 'react-bootstrap';
+import { Container, Alert } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MovieCard from '../../common/movieCard/MovieCard';
@@ -19,7 +19,7 @@ import './MoviePage.style.css';
 
 const MoviePage = () => {
 
-  const [query, setQuery] = useSearchParams();
+  const [query] = useSearchParams();
   const keyword = query.get('q');
   const [page, setPage] = useState(1); 
   const {data, isLoading, isError, error} = useSearchMovieQuery({keyword, page});
@@ -33,57 +33,87 @@ const MoviePage = () => {
     setPage(1); 
   }, [keyword]);
 
-  if(isLoading) return <div><h1>Loading...</h1></div>;
+  if(isLoading) return (
+    <div className="netflix-loading">
+      <div className="netflix-spinner"></div>
+      <h2>로딩 중...</h2>
+    </div>
+  );
+
   if(isError) {
     return (
-      <div>
+      <div className="netflix-error">
         <Alert variant={'danger'}>{error.message}</Alert>
       </div>
     );
   }
 
   return (
-    <Container>
-      <Row>
-        <Col lg={4} xs={12}>
-          필터
-        </Col>
-        <Col lg={8} xs={12}>
-          <Row>
-            {data?.results.map((item, idx) => 
-              <Col key={idx}><MovieCard movie={item}/></Col>
+    <div className="netflix-container">
+      <Container fluid>
+        {keyword && (
+          <div className="netflix-search-result">
+            <h2>"{keyword}" 검색 결과</h2>
+          </div>
+        )}
+        
+        <Row className="netflix-content">
+          <Col lg={3} md={4} sm={12} className="netflix-filter">
+            <div className="netflix-filter-panel">
+              <h3>필터 등등이 넣을 곳</h3>
+              <div className="netflix-divider"></div>
+            </div>
+          </Col>
+          
+          <Col lg={9} md={8} sm={12}>
+            {data?.results.length === 0 ? (
+              <div className="netflix-no-result">
+                <h3>검색 결과를 찾을 수 없습니다.</h3>
+                <p>다른 검색어를 입력하거나 필터를 조정해보세요.</p>
+              </div>
+            ) : (
+              <div className="netflix-movie-grid">
+                {data?.results.map((item, idx) => (
+                  <div key={idx} className="netflix-movie-item">
+                    <MovieCard movie={item} />
+                  </div>
+                ))}
+              </div>
             )}
-          </Row>
-        </Col>
-      </Row>
-      <div className="paginate-wrapper">
-        <ReactPaginate
-          previousLabel="◀"
-          nextLabel="▶"
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item previous"
-          previousLinkClassName="page-link"
-          nextClassName="page-item next"
-          nextLinkClassName="page-link"
-          breakLabel="..."
-          breakClassName="page-item break"
-          breakLinkClassName="page-link"
-          pageCount={data?.total_pages > 500 ? 500 : data?.total_pages ?? 1}
-          marginPagesDisplayed={1}
-          pageRangeDisplayed={window.innerWidth > 768 ? 3 : 1}
-          onPageChange={handlePageChange}
-          containerClassName="pagination"
-          activeClassName="active"
-          forcePage={page-1}
-          disabledClassName="disabled"
-          ariaLabelBuilder={(page, selected) => 
-            selected ? `현재 페이지, 페이지 ${page}` : `페이지 ${page}로 이동`
-          }
-          aria-label={data?.total_pages <= 1 ? "Pagination with only one page" : "Pagination"}
-        />
-      </div>
-    </Container>
+          </Col>
+        </Row>
+        
+        {data?.results.length > 0 && (
+          <div className="paginate-wrapper">
+            <ReactPaginate
+              previousLabel="◀"
+              nextLabel="▶"
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item previous"
+              previousLinkClassName="page-link"
+              nextClassName="page-item next"
+              nextLinkClassName="page-link"
+              breakLabel="..."
+              breakClassName="page-item break"
+              breakLinkClassName="page-link"
+              pageCount={data?.total_pages > 500 ? 500 : data?.total_pages}
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={window.innerWidth > 768 ? 3 : 1}
+              onPageChange={handlePageChange}
+              containerClassName="pagination"
+              activeClassName="active"
+              forcePage={page-1}
+              disabledClassName="disabled"
+              ariaLabelBuilder={(page, selected) => 
+                selected ? `현재 페이지, 페이지 ${page}` : `페이지 ${page}로 이동`
+              }
+              aria-label={data?.total_pages <= 1 ? "Pagination with only one page" : "Pagination"}
+            />
+          </div>
+        )}
+      </Container>
+    </div>
   )
 }
 

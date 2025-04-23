@@ -1,3 +1,154 @@
+.netflix-container {
+  background-color: #141414;
+  min-height: 100vh;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.netflix-content {
+  margin-top: 20px;
+}
+
+.netflix-filter {
+  padding: 15px;
+}
+
+.netflix-filter-panel {
+  background-color: rgba(20, 20, 20, 0.8);
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 120px;
+}
+
+.netflix-divider {
+  height: 1px;
+  background-color: #333;
+  margin: 15px 0;
+}
+
+.netflix-search-result {
+  margin: 20px 0;
+  padding: 0 15px;
+  top : 60px;
+  position: sticky;
+}
+
+.netflix-search-result h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.netflix-movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+.netflix-movie-item {
+  transition: transform 0.3s ease;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.netflix-movie-item:hover {
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.netflix-no-result {
+  background-color: rgba(20, 20, 20, 0.8);
+  border-radius: 5px;
+  padding: 40px 20px;
+  text-align: center;
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.netflix-no-result h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #e5e5e5;
+}
+
+.netflix-no-result p {
+  color: #b3b3b3;
+  font-size: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 반응형 스타일 */
+@media (max-width: 992px) {
+  .netflix-movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .netflix-filter-panel {
+    position: relative;
+    top: 0;
+    margin-bottom: 20px;
+  }
+
+  .netflix-search-result {
+    position: relative;
+    top: 0;
+    margin-bottom: 20px;
+  }
+
+  
+  .netflix-movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  
+  .netflix-movie-item {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .netflix-movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    padding: 5px;
+  }
+  
+  .netflix-movie-item {
+    margin-bottom: 20px;
+    transform: scale(0.95);
+  }
+  
+  .netflix-movie-item:hover {
+    transform: scale(1);
+  }
+  
+  .netflix-search-result h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .netflix-movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+  }
+  
+  .netflix-movie-item {
+    margin-bottom: 15px;
+  }
+}
+
 #container {
   margin: 1rem;
 }
