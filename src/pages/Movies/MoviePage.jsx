@@ -57,6 +57,10 @@ const MoviePage = () => {
 
 
   useEffect(() => {
+    if(selectedGenres.length > 0) {
+      isFirstRender.current = true;
+      setSelectedGenres([]);
+    }
     setSearchKeyword(keyword);
     setPage(1);
   }, [keyword]);
@@ -73,6 +77,7 @@ const MoviePage = () => {
       return;
     }
 
+    query
     setSearchKeyword('');
     setPage(1);    
 
