@@ -27,12 +27,12 @@ const MoviePage = () => {
   const [ selectedGenres, setSelectedGenres ] = useState([]);
   const [ searchKeyword, setSearchKeyword ] = useState(keyword);
   const isFirstRender = useRef(true);
+  const navigate = useNavigate();
 
 
   
-
   const { data, isLoading, isError, error } = useDiscoverMoviesQuery({
-    keyword: searchKeyword || '',
+    keyword: keyword || '',
     page: page,
     sort_by: 'popularity.desc',
     with_genres: selectedGenres.join('|')
@@ -56,11 +56,20 @@ const MoviePage = () => {
   //-- 페이지 초기화 
 
 
+  useEffect(() => {
+    setSearchKeyword(keyword);
+    setPage(1);
+  }, [keyword]);
 
   useEffect(() => { 
 
     if(isFirstRender.current) {
       isFirstRender.current = false;
+      return;
+    }
+
+    if(selectedGenres.length === 0) {
+      navigate('/movies');
       return;
     }
 
