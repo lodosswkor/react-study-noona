@@ -18,8 +18,8 @@ const AppLayout = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        //navigate(`/movies?q=${keyword}`);
-        window.location.href=`/movies?q=${keyword}`;
+        navigate(`/movies?q=${keyword}`);
+        //window.location.href=`/movies?q=${keyword}`;
         setKeyword('');
     }
 
