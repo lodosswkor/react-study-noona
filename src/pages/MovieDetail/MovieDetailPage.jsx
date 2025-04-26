@@ -4,15 +4,24 @@ import { useNavigate } from 'react-router-dom'
 import { useMovieDetailQuery } from '../../hooks/useMovieDetail'
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { useMovieVideoQuery } from '../../hooks/useMovieVideo';
+import { useMovieReviewQuery } from '../../hooks/useMovieReview';
 
 const MovieDetailPage = () => {
 
   const navigate = useNavigate();
   const { id } = useParams();
   const [expandedReview, setExpandedReview] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
 
 
   const { data, isLoading, isError, error } = useMovieDetailQuery(id);
+  const { data: videoData } = useMovieVideoQuery({movieId: id});
+  const { data: reviewData, isLoading: isReviewsLoading } = useMovieReviewQuery(id, currentPage);
+  
+  // console.log(reviewData);
+  // console.log(videoData);
+  // console.log(data);
 
   const formatNumber = (number) => { 
     return number.toLocaleString('ko-KR');
@@ -37,29 +46,29 @@ const MovieDetailPage = () => {
     navigate(-1); // 이전 페이지로 이동
   };
 
-  const reviews = [
-    {
-      id: 1,
-      author: "MovieLover",
-      rating: 4.5,
-      content: "놀라운 영화입니다. 마피아 영화의 대명사로 불리는 대부 시리즈는 언제 봐도 감탄이 나옵니다. 특히 알 파치노의 연기는 정말 인상적이었고, 스토리 전개도 매끄럽습니다. 마이클 콜레오네의 캐릭터 변화가 특히 인상적이었습니다. 첫 번째 영화에서 보여준 순수함에서 벗어나 냉혹한 마피아 보스로 변모해가는 과정이 너무나도 자연스럽게 그려졌습니다.",
-      created_at: "2024-03-15"
-    },
-    {
-      id: 2,
-      author: "CinemaFan",
-      rating: 5,
-      content: "대부 1편에 이어 2편도 최고의 걸작입니다. 특히 로버트 드니로가 연기한 젊은 비토 콜레오네의 이야기는 정말 인상적이었습니다. 두 개의 시간선을 오가며 진행되는 스토리텔링도 매우 훌륭했습니다.dasdasdasdasdasasdasdasdasdasd asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdadasdsadadasdadasdadasd\ndasdasdsadass\\mdasdasdsasasdasdasdadd<br>",
-      created_at: "2024-03-14"
-    },
-    {
-      id: 3,
-      author: "살려줘 디자인하다가 죽겠어ㅠㅠ",
-      rating: 5,
-      content: "대부 1편에 이어 2편도 최고의 걸작입니다. 특히 로버트 드니로가 연기한 젊은 비토 콜레오네의 이야기는 정말 인상적이었습니다. 두 개의 시간선을 오가며 진행되는 스토리텔링도 매우 훌륭했습니다.dasdasdasdasdasasdasdasdasdasd asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdasdasdasdadd<br>asdasdasdadasdsadadasdadasdadasd\ndasdasdsadass\\mdasdasdsasasdasdasdadd<br>",
-      created_at: "2024-03-14"
-    }
-  ];
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({
+      top: document.querySelector('.reviews-section').offsetTop,
+      behavior: 'smooth'
+    });
+  };
+
+
+  if(isLoading) return (
+    <div className="netflix-loading">
+      <div className="netflix-spinner"></div>
+      <h2>로딩 중...</h2>
+    </div>
+  );
+
+  if(isError) {
+    return (
+      <div className="netflix-error">
+        <Alert variant={'danger'}>{error.message}</Alert>
+      </div>
+    );
+  }
 
 
   return (
@@ -107,30 +116,106 @@ const MovieDetailPage = () => {
             </div>
           )}
 
+          <div className="youtube-section">
+            <h3>예고편</h3>
+            <div className="youtube-container">
+              {videoData?.length > 0 && (
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${videoData[0].key}`}
+                title={videoData[0].name}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+              )}
+              <div className="youtube-placeholder">
+                <p>동영상이 존재하지 않습니다.</p>
+              </div>
+            </div>
+          </div>
+
          <div className="reviews-section">
             <h3>리뷰</h3>
             <div className="reviews-container">
-              {reviews.map((review) => (
-                <div key={review.id} className="review-card">
-                  <div className="review-header">
-                    <div className="review-author">
-                      <span className="author-name">{review.author}</span>
-                      <span className="review-date">{review.created_at}</span>
-                    </div>
-                    <div className="review-rating">★ {review.rating}</div>
-                  </div>
-                  <div className={`review-content ${expandedReview[review.id] ? 'expanded' : ''}`}>
-                    <p>{review.content}</p>
-                  </div>
-                    <button 
-                      className="show-more-button"
-                      onClick={() => toggleReview(review.id)}
-                    >
-                      {expandedReview[review.id] ? '접기' : '더보기'}
-                    </button>
+              {isReviewsLoading ? (
+                <div className="review-card">
+                  <p>리뷰를 불러오는 중입니다...</p>
                 </div>
-              ))}
+              ) : reviewData?.results?.length > 0 ? (
+                reviewData.results.map((review) => (
+                  <div key={review.id} className="review-card">
+                    <div className="review-header">
+                      <div className="review-author">
+                        <span className="author-name">{review.author}</span>
+                        <span className="review-date">
+                          {new Date(review.created_at).toLocaleDateString('ko-KR')}
+                        </span>
+                      </div>
+                      <div className="review-rating">
+                        {review.author_details.rating ? `★ ${review.author_details.rating.toFixed(1)}` : '평점 없음'}
+                      </div>
+                    </div>
+                    <div className={`review-content ${expandedReview[review.id] ? 'expanded' : ''}`}>
+                      <p>{review.content}</p>
+                    </div>
+                    {review.content.length > 200 && (
+                      <button 
+                        className="show-more-button"
+                        onClick={() => toggleReview(review.id)}
+                      >
+                        {expandedReview[review.id] ? '접기' : '더보기'}
+                      </button>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div className="review-card">
+                  <p>아직 작성된 리뷰가 없습니다.</p>
+                </div>
+              )}
             </div>
+
+            {reviewData?.total_pages > 1 && (
+              <div className="pagination">
+                <button
+                  className="pagination-button"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  이전
+                </button>
+                {Array.from({ length: Math.min(5, reviewData.total_pages) }, (_, i) => {
+                  let pageNumber;
+                  if (reviewData.total_pages <= 5) {
+                    pageNumber = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNumber = i + 1;
+                  } else if (currentPage >= reviewData.total_pages - 2) {
+                    pageNumber = reviewData.total_pages - 4 + i;
+                  } else {
+                    pageNumber = currentPage - 2 + i;
+                  }
+                  return (
+                    <button
+                      key={pageNumber}
+                      className={`pagination-button ${currentPage === pageNumber ? 'active' : ''}`}
+                      onClick={() => handlePageChange(pageNumber)}
+                    >
+                      {pageNumber}
+                    </button>
+                  );
+                })}
+                <button
+                  className="pagination-button"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === reviewData.total_pages}
+                >
+                  다음
+                </button>
+              </div>
+            )}
           </div>  
         </div>
 

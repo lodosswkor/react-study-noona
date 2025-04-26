@@ -1,8 +1,41 @@
 .netflix-container {
+  padding: 20px;
   background-color: #141414;
   min-height: 100vh;
   color: #fff;
-  padding: 20px 0;
+}
+
+.netflix-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+}
+
+.netflix-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #e50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.netflix-error {
+  padding: 20px;
+  color: white;
+}
+
+.netflix-search-result {
+  color: white;
+  margin-bottom: 20px;
 }
 
 .netflix-content {
@@ -10,16 +43,15 @@
 }
 
 .netflix-filter {
-  padding: 15px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
-.netflix-filter-panel {
-  background-color: rgba(20, 20, 20, 0.8);
-  border-radius: 5px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  position: sticky;
-  top: 120px;
+.netflix-filter-panel h3 {
+  color: white;
+  margin-bottom: 15px;
 }
 
 .netflix-divider {
@@ -28,61 +60,86 @@
   margin: 15px 0;
 }
 
-.netflix-search-result {
-  margin: 20px 0;
-  padding: 0 15px;
-  top : 60px;
-  position: sticky;
+.genre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.netflix-search-result h2 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #fff;
+.genre-tag {
+  margin: 4px;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.genre-tag:hover {
+  transform: scale(1.05);
 }
 
 .netflix-movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
-  padding: 10px;
+  padding: 20px 0;
 }
 
 .netflix-movie-item {
   transition: transform 0.3s ease;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
 }
 
 .netflix-movie-item:hover {
   transform: scale(1.05);
-  z-index: 2;
 }
 
 .netflix-no-result {
-  background-color: rgba(20, 20, 20, 0.8);
-  border-radius: 5px;
-  padding: 40px 20px;
+  color: white;
   text-align: center;
-  margin: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 40px;
 }
 
-.netflix-no-result h3 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  color: #e5e5e5;
+.paginate-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  padding: 20px 0;
 }
 
-.netflix-no-result p {
-  color: #b3b3b3;
-  font-size: 1rem;
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 5px;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.page-item {
+  margin: 0 2px;
+}
+
+.page-link {
+  color: white;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.page-link:hover {
+  background-color: #333;
+}
+
+.active .page-link {
+  background-color: #e50914;
+  border-color: #e50914;
+}
+
+.disabled .page-link {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* 반응형 스타일 */

@@ -1,13 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useSearchParams } from 'react-router';
-import { useSearchMovieQuery } from '../../hooks/useSearchMovie';
-import { Container, Alert } from 'react-bootstrap';
+import { Container, Alert, Button } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MovieCard from '../../common/movieCard/MovieCard';
 import ReactPaginate from 'react-paginate';
 import './MoviePage.style.css';
+import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
+import { useDiscoverMoviesQuery } from '../../hooks/useDiscoverMovies';
+import { useNavigate } from 'react-router';
 
 
 // 경로2가지 
@@ -19,19 +20,55 @@ import './MoviePage.style.css';
 
 const MoviePage = () => {
 
-  const [query] = useSearchParams();
+  const [ query ] = useSearchParams();
   const keyword = query.get('q');
-  const [page, setPage] = useState(1); 
-  const {data, isLoading, isError, error} = useSearchMovieQuery({keyword, page});
+  const [ page, setPage ] = useState(1);
+  const { data: genreData } = useMovieGenreQuery();
+  const [ selectedGenres, setSelectedGenres ] = useState([]);
+  const [ searchKeyword, setSearchKeyword ] = useState(keyword);
+  const isFirstRender = useRef(true);
 
-  const handlePageChange = ({selected:page}) => {
-    setPage(page+1);
+
+  
+
+  const { data, isLoading, isError, error } = useDiscoverMoviesQuery({
+    keyword: searchKeyword || '',
+    page: page,
+    sort_by: 'popularity.desc',
+    with_genres: selectedGenres.join('|')
+  });
+  
+  //const { data, isLoading, isError, error} = useDiscoverMoviesQuery({keyword, page, 'popularity.desc', '12|16|18|28|53'});
+
+  const handlePageChange = () => {
+    setPage(prev => prev+1);
   }
 
+  const handleGenreClick = (genreId) => {
+    setSelectedGenres(prev => 
+      prev.includes(genreId) 
+        ? prev.filter(id => id !== genreId)
+        : [...prev, genreId]
+    );
+    setPage(1); // 장르 선택 시 페이지 초기화
+  };
+
   //-- 페이지 초기화 
-  useEffect(() => {
-    setPage(1); 
-  }, [keyword]);
+
+
+
+  useEffect(() => { 
+
+    if(isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    setSearchKeyword('');
+    setPage(1);    
+
+  }, [selectedGenres]);
+
 
   if(isLoading) return (
     <div className="netflix-loading">
@@ -51,17 +88,29 @@ const MoviePage = () => {
   return (
     <div className="netflix-container">
       <Container fluid>
-        {keyword && (
+        {searchKeyword && (
           <div className="netflix-search-result">
-            <h2>"{keyword}" 검색 결과</h2>
+            <h2>"{searchKeyword}" 검색 결과</h2>
           </div>
         )}
         
         <Row className="netflix-content">
           <Col lg={3} md={4} sm={12} className="netflix-filter">
             <div className="netflix-filter-panel">
-              <h3>필터 등등이 넣을 곳</h3>
+              <h3>장르 필터</h3>
               <div className="netflix-divider"></div>
+              <div className="genre-tags">
+                {genreData?.genres?.map((genre) => (
+                  <Button
+                    key={genre.id}
+                    variant={selectedGenres.includes(genre.id) ? "primary" : "outline-primary"}
+                    className="genre-tag"
+                    onClick={() => handleGenreClick(genre.id)}
+                  >
+                    {genre.name}
+                  </Button>
+                ))}
+              </div>
             </div>
           </Col>
           
